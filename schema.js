@@ -12,44 +12,65 @@ const {
     GraphQLList
 } = require('graphql');
 
-const BookType = new GraphQLObjectType({
-    name: 'Book',
-    description: 'Authors book',
+const BestsellerType = new GraphQLObjectType({
+    name: 'Bestsellers',
     fields: () => ({
         title: {
             type: GraphQLString,
-            resolve: xml => xml.title[0]
+            resolve: data => data.book_details[0].title
         },
         isbn: {
             type: GraphQLString,
-            resolve: xml => xml.isbn[0]
+            resolve: data => {
+                let val;
+                data.isbns.some(isbn => {
+                    if(isbn.isbn10) {
+                        val = isbn.isbn10;
+                        return;
+                    }
+                });
+                return val;
+            }
+        }
+    })
+});
+
+const BookType = new GraphQLObjectType({
+    name: 'Book',
+    fields: () => ({
+        title: {
+            type: GraphQLString,
+            resolve: data => data.title[0]
+        },
+        isbn: {
+            type: GraphQLString,
+            resolve: data => data.isbn[0]
         },
         cover: {
             type: GraphQLString,
-            resolve: xml => xml.image_url[0]
+            resolve: data => data.image_url[0]
         }
     })
 });
 
 const AuthorType = new GraphQLObjectType({
     name: 'Author',
-    description: 'Author info',
     fields: () => ({
         name: {
             type: GraphQLString,
-            resolve: xml => xml.GoodreadsResponse.author[0].name[0]
+            resolve: data => data.name[0]
         },
         about: {
             type: GraphQLString,
-            resolve: xml => xml.GoodreadsResponse.author[0].about[0]
+            resolve: data => data.about[0]
         },
         photo: {
             type: GraphQLString,
-            resolve: xml => xml.GoodreadsResponse.author[0].image_url[0]
+            resolve: data => data.image_url[0]
         },
         books: {
             type: new GraphQLList(BookType),
-            resolve: xml => xml.GoodreadsResponse.author[0].books[0].book
+            resolve: data => data.books[0].book
         }
     })
 });
@@ -57,8 +78,18 @@ const AuthorType = new GraphQLObjectType({
 module.exports = new GraphQLSchema({
     query: new GraphQLObjectType({
         name: 'Query',
-        description: 'Main query',
         fields: () => ({
+            bestsellers: {
+                type: new GraphQLList(BestsellerType),
+                args: {
+                    list: { type: GraphQLString }
+                },
+                resolve: (root, args) => fetch(
+                    `https://api.nytimes.com/svc/books/v3/lists.json?api-key=${keys.NYTimes}&list=${args.list}`
+                )
+                .then(res => res.json())
+                .then(data => data.results)
+            },
             author: {
                 type: AuthorType,
                 args: {
@@ -67,8 +98,9 @@ module.exports = new GraphQLSchema({
                 resolve: (root, args) => fetch(
                     `https://www.goodreads.com/author/show/${args.id}?format=xml&key=${keys.goodReads}`
                 )
-                .then(resp => resp.text())
+                .then(res => res.text())
                 .then(parseXML)
+                .then(data => data.GoodreadsResponse.author[0])
             }
         })
     })
