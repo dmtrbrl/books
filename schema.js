@@ -38,6 +38,10 @@ const BestsellerType = new GraphQLObjectType({
 const BookType = new GraphQLObjectType({
     name: 'Book',
     fields: () => ({
+        id: {
+            type: GraphQLInt,
+            resolve: data => data.id[0]._
+        },
         title: {
             type: GraphQLString,
             resolve: data => data.title[0]
@@ -48,7 +52,9 @@ const BookType = new GraphQLObjectType({
         },
         cover: {
             type: GraphQLString,
-            resolve: data => data.image_url[0]
+            resolve: data => {
+                return data.image_url[0].indexOf('nophoto') == -1 ? data.image_url[0] : null;
+            }
         }
     })
 });
@@ -56,6 +62,10 @@ const BookType = new GraphQLObjectType({
 const AuthorType = new GraphQLObjectType({
     name: 'Author',
     fields: () => ({
+        id: {
+            type: GraphQLInt,
+            resolve: data => data.id[0]
+        },
         name: {
             type: GraphQLString,
             resolve: data => data.name[0]
@@ -66,7 +76,9 @@ const AuthorType = new GraphQLObjectType({
         },
         photo: {
             type: GraphQLString,
-            resolve: data => data.image_url[0]
+            resolve: data => {
+                return data.image_url[0].indexOf('nophoto') == -1 ? data.image_url[0] : null;
+            }
         },
         books: {
             type: new GraphQLList(BookType),
