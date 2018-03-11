@@ -19,43 +19,28 @@ const BestsellerType = new GraphQLObjectType({
             type: GraphQLString,
             resolve: data => data[0].list_name
         },
-        // books: {
-        //     type: new GraphQLList(BookType),
-        //     resolve: data => {
-        //         let isbns = data.map(book => book.isbns[0].isbn10 && book.isbns[0].isbn10 !== "None" ? book.isbns[0].isbn10 : book.isbns[1].isbn10);
-        //         return Promise.all(isbns.map(isbn => {
-        //             fetch(
-        //                 `https://www.goodreads.com/book/isbn/${isbn}?key=${keys.goodReads}`
-        //             )
-        //             .then(res => res.text())
-        //             .then(parseXML)
-        //             .then(data => data.GoodreadsResponse.book[0])
-        //         }));
-        //     }
-        // }
         books: {
-            type: BookType,
+            type: new GraphQLList(BookType),
             resolve: data => {
-                let isbns = data.map(book => book.isbns[0].isbn10 && book.isbns[0].isbn10 !== "None" ? book.isbns[0].isbn10 : book.isbns[1].isbn10);
-                fetch(
-                    `https://www.goodreads.com/book/isbn/${isbns[0]}?key=${keys.goodReads}`
-                )
-                .then(res => res.text())
-                .then(parseXML)
-                .then(data => {
-                    console.log(data.GoodreadsResponse.book[0]);
-                    return data.GoodreadsResponse.book[0];
-                })
+                let isbns = data.map(book => book.isbns[0].isbn13 && book.isbns[0].isbn13 !== "None" ? book.isbns[0].isbn13 : book.isbns[1].isbn13);
+                console.log(isbns);
+                
+                return Promise.all(isbns.map(isbn => {
+                    return fetch(
+                            `https://www.goodreads.com/book/isbn/${isbn}?key=${keys.goodReads}`
+                        )
+                        .then(res => res.text())
+                        .then(parseXML)
+                        .then(
+                            data => Promise.resolve(data.GoodreadsResponse.book[0]),
+                            error => Promise.reject(error)
+                        )
+                        .catch(error => console.log(error))
+                }))
+                .then(data => data)
+                .catch(error => console.log(error));
             }
         }
-        // title: {
-        //     type: GraphQLString,
-        //     resolve: data => data.book_details[0].title
-        // },
-        // isbn: {
-        //     type: GraphQLString,
-        //     resolve: data => data.isbns[0].isbn10 && data.isbns[0].isbn10 !== "None" ? data.isbns[0].isbn10 : data.isbns[1].isbn10
-        // }
     })
 });
 
@@ -146,7 +131,8 @@ module.exports = new GraphQLSchema({
                     `https://api.nytimes.com/svc/books/v3/lists.json?api-key=${keys.NYTimes}&list=${args.list}`
                 )
                 .then(res => res.json())
-                .then(data => data.results.slice(0,5))
+                .then(data => data.results.slice(0,10))
+                .catch(error => console.log(error))
             },
             author: {
                 type: AuthorType,
