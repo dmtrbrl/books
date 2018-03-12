@@ -14,6 +14,7 @@ const {
 
 const BestsellerType = new GraphQLObjectType({
     name: 'Bestsellers',
+    description: 'Possible list values: combined-print-and-e-book-fiction, hardcover-fiction, trade-fiction-paperback, audio-fiction, combined-print-and-e-book-nonfiction, hardcover-nonfiction, paperback-nonfiction, advice-how-to-and-miscellaneous, childrens-middle-grade-hardcover... more on https://www.nytimes.com/books/best-sellers/',
     fields: () => ({
         listName: {
             type: GraphQLString,
@@ -23,7 +24,6 @@ const BestsellerType = new GraphQLObjectType({
             type: new GraphQLList(BookType),
             resolve: data => {
                 let isbns = data.map(book => book.isbns[0].isbn13 && book.isbns[0].isbn13 !== "None" ? book.isbns[0].isbn13 : book.isbns[1].isbn13);
-                console.log(isbns);
                 
                 return Promise.all(isbns.map(isbn => {
                     return fetch(
@@ -61,7 +61,13 @@ const BookType = new GraphQLObjectType({
         },
         cover: {
             type: GraphQLString,
-            resolve: data => data.image_url[0].indexOf('nophoto') == -1 ? data.image_url[0] : null
+            resolve: data => {
+                if(data.image_url[0].indexOf('nophoto') != -1)  return null;
+                // Get a large cover instead of medium
+                let img = data.image_url[0];
+                let n = img.lastIndexOf('m/');
+                return img.slice(0, n) + img.slice(n).replace('m/', 'l/');
+            }
         },
         description: {
             type: GraphQLString,
