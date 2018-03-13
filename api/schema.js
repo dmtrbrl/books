@@ -1,4 +1,4 @@
-const keys = require('../keys');
+const keys = require('./keys');
 const fetch = require('node-fetch');
 const util = require('util');
 const parseXML = util.promisify(require('xml2js').parseString);
@@ -156,31 +156,33 @@ const AuthorType = new GraphQLObjectType({
     })
 });
 
-module.exports = new GraphQLSchema({
-    query: new GraphQLObjectType({
-        name: 'Query',
-        fields: () => ({
-            bestsellers: {
-                type: ListsType,
-                args: {
-                    list: { type: GraphQLString }
-                },
-                resolve: (root, args) => listLoader.load(args.list)
+const RootQuery = new GraphQLObjectType({
+    name: 'RootQuery',
+    fields: () => ({
+        bestsellers: {
+            type: ListsType,
+            args: {
+                list: { type: GraphQLString }
             },
-            author: {
-                type: AuthorType,
-                args: {
-                    id: { type: GraphQLInt }
-                },
-                resolve: (root, args) => authorLoader.load(args.id)
+            resolve: (root, args) => listLoader.load(args.list)
+        },
+        author: {
+            type: AuthorType,
+            args: {
+                id: { type: GraphQLInt }
             },
-            book: {
-                type: BookType,
-                args: {
-                    id: { type: GraphQLInt }
-                },
-                resolve: (root, args) => bookLoader.load(args.id)
-            }
-        })
+            resolve: (root, args) => authorLoader.load(args.id)
+        },
+        book: {
+            type: BookType,
+            args: {
+                id: { type: GraphQLInt }
+            },
+            resolve: (root, args) => bookLoader.load(args.id)
+        }
     })
+});
+
+module.exports = new GraphQLSchema({
+    query: RootQuery
 });

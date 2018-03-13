@@ -1,8 +1,13 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
+const cors = require('cors');
+
 const app = express();
 
-const schema = require('./api/schema');
+// Allow cross-origin requests
+app.use(cors());
+
+const schema = require('./schema');
 
 app.use('/api', graphqlHTTP({
     schema,
@@ -12,4 +17,4 @@ app.use('/api', graphqlHTTP({
 
 app.listen(4000);
 
-console.log('Listening...');
+console.log('Listening on port 4000');
