@@ -1,4 +1,4 @@
-const keys = require('./keys');
+const keys = require('../keys');
 
 const fetch = require('node-fetch');
 const util = require('util');
