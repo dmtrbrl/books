@@ -137,7 +137,7 @@ module.exports = new GraphQLSchema({
                     `https://api.nytimes.com/svc/books/v3/lists.json?api-key=${keys.NYTimes}&list=${args.list}`
                 )
                 .then(res => res.json())
-                .then(data => data.results.slice(0,10))
+                .then(data => data.results.length ? data.results.slice(0,10) : null)
                 .catch(error => console.log(error))
             },
             author: {
