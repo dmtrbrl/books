@@ -57,7 +57,7 @@ const BookType = new GraphQLObjectType({
         },
         isbn: {
             type: GraphQLString,
-            resolve: data => data.isbn[0] || data.isbn[0]._
+            resolve: data => typeof data.isbn[0] === 'string' ? data.isbn[0] : null
         },
         cover: {
             type: GraphQLString,
