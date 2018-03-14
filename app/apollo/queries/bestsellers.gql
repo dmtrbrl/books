@@ -1,0 +1,16 @@
+query bestsellers($list: String!) {
+    bestsellers(list: $list) {
+        listName
+        books{
+            id
+            title
+            isbn
+            cover
+            authors{
+                id
+                name
+                role
+            }
+        }
+    }
+}

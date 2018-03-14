@@ -1,0 +1,12 @@
+query author($id: ID!) {
+  author(id: $id) {
+    name
+    photo
+    about
+    books{
+        id
+        title
+        cover
+    }
+  }
+}

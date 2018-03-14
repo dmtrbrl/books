@@ -8,6 +8,7 @@ const {
     GraphQLSchema,
     GraphQLObjectType,
     GraphQLInt,
+    GraphQLID,
     GraphQLString,
     GraphQLList
 } = require('graphql');
@@ -80,7 +81,7 @@ const BookType = new GraphQLObjectType({
     name: 'Book',
     fields: () => ({
         id: {
-            type: GraphQLInt,
+            type: GraphQLID,
             resolve: data => data.id[0]._ || data.id[0]
         },
         title: {
@@ -110,7 +111,7 @@ const BookType = new GraphQLObjectType({
                 name: 'BookAuthor',
                 fields: () => ({
                     id: {
-                        type: GraphQLInt,
+                        type: GraphQLID,
                         resolve: data => data.id[0]._ || data.id[0]
                     },
                     name: {
@@ -132,7 +133,7 @@ const AuthorType = new GraphQLObjectType({
     name: 'Author',
     fields: () => ({
         id: {
-            type: GraphQLInt,
+            type: GraphQLID,
             resolve: data => data.id[0]._ || data.id[0]
         },
         name: {
@@ -169,14 +170,14 @@ const RootQuery = new GraphQLObjectType({
         author: {
             type: AuthorType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLID }
             },
             resolve: (root, args) => authorLoader.load(args.id)
         },
         book: {
             type: BookType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLID }
             },
             resolve: (root, args) => bookLoader.load(args.id)
         }
