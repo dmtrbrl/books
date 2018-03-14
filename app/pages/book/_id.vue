@@ -33,6 +33,11 @@ export default {
         return {
             book: null
         }
+    },
+    middleware: ({ route, redirect }) => {
+        if(!route.params.id) {
+            return redirect('/');
+        }
     }
 }
 </script>

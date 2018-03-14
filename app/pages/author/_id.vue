@@ -32,6 +32,11 @@ export default {
         return {
             author: null
         }
+    },
+    middleware: ({ route, redirect }) => {
+        if(!route.params.id) {
+            return redirect('/');
+        }
     }
 }
 </script>
