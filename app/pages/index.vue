@@ -1,25 +1,41 @@
 <template>
   <section class="container">
-    <div>
-      <h1 class="title">
-        books-app
-      </h1>
-    </div>
+    <h1>
+        Bestsellers
+    </h1>
+    <h2>
+        {{ bestsellers.listName }}
+    </h2>
+    <ul>
+        <li v-for="book in bestsellers.books" :key="book.id">
+            <img :src="book.cover" :alt="book.title">
+            <h3>{{ book.title }}</h3>
+            <div>{{ book.isbn }}</div>
+            <div v-for="author in book.authors" :key="author.id">
+                {{ author.name }}
+            </div>
+        </li>
+    </ul>
   </section>
 </template>
 
 <script>
-import book from '~/apollo/queries/book.gql'
+
+import { BestsellersQuery } from '~/apollo/queries'
+
 export default {
     apollo: {
-        Book: {
-            query: book,
-            prefetch: () => ({ id: 34930873 }),
+        bestsellers: {
+            query: BestsellersQuery,
+            prefetch: true,
             variables() {
-                return { id: 34930873 }
+                return { list: "combined-print-and-e-book-fiction" }
             }
         }
     },
+    head: {
+        title: 'Bestsellers'
+    }
 }
 </script>
 

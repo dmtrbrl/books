@@ -12,6 +12,10 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/apollo": "^3.0.5",
+    "apollo-link-http": "^1.5.3",
+    "graphql": "^0.13.1",
+    "graphql-tag": "^2.8.0",
     "nuxt": "^1.0.0"
   },
   "devDependencies": {
