@@ -5,7 +5,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 export default (ctx) => {
 	const httpLink = new HttpLink({ uri: "http://localhost:4000/api" });
 	// auth token
-	let token = ctx.isServer ? ctx.req.session : window.__NUXT__.state.session
+	let token = process.server ? ctx.req.session : window.__NUXT__.state.session
 
 	// middleware
 	const middlewareLink = new ApolloLink((operation, forward) => {
