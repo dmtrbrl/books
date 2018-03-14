@@ -9,9 +9,17 @@
 </template>
 
 <script>
-
+import book from '~/apollo/queries/book.gql'
 export default {
-
+    apollo: {
+        Book: {
+            query: book,
+            prefetch: () => ({ id: 34930873 }),
+            variables() {
+                return { id: 34930873 }
+            }
+        }
+    },
 }
 </script>
 
