@@ -13,12 +13,22 @@ const {
     GraphQLList
 } = require('graphql');
 
+const fetchListsOverview = () => {
+    return fetch(
+        `https://api.nytimes.com/svc/books/v3/lists/overview.json?api-key=${keys.NYTimes}`
+    )
+    .then(res => res.json())
+    .then(data => data.results.lists.slice(0,5))
+    .catch(error => console.log(error))
+}
+const listsOverviewLoader = new DataLoader(keys => Promise.all(keys.map(fetchListsOverview)));
+
 const fetchList = list => {
     return fetch(
         `https://api.nytimes.com/svc/books/v3/lists.json?api-key=${keys.NYTimes}&list=${list}`
     )
     .then(res => res.json())
-    .then(data => data.results.length ? data.results.slice(0,10) : null)
+    .then(data => data.results)
     .catch(error => console.log(error))
 }
 const listLoader = new DataLoader(keys => Promise.all(keys.map(fetchList)));
@@ -59,9 +69,35 @@ const fetchBookByIsbn = isbn => {
 }
 const booksListLoader = new DataLoader(keys => Promise.all(keys.map(fetchBookByIsbn)));
 
-const ListsType = new GraphQLObjectType({
-    name: 'Bestsellers',
-    description: 'Possible list values: combined-print-and-e-book-fiction, hardcover-fiction, trade-fiction-paperback, audio-fiction, combined-print-and-e-book-nonfiction, hardcover-nonfiction, paperback-nonfiction, advice-how-to-and-miscellaneous, childrens-middle-grade-hardcover... more on https://www.nytimes.com/books/best-sellers/',
+const ListOverviewType = new GraphQLObjectType({
+    name: 'BestsellersListOverview',
+    fields: () => ({
+        listName: {
+            type: GraphQLString,
+            resolve: data => data.list_name
+        },
+        books: {
+            type: new GraphQLList(BookType),
+            resolve: data => {
+                let isbns = data.books.map(book => book.primary_isbn13);
+                return booksListLoader.loadMany(isbns);
+            }
+        }
+    })
+});
+
+const ListsOverviewType = new GraphQLObjectType({
+    name: 'BestsellersListsOverview',
+    fields: () => ({
+        lists: {
+            type: new GraphQLList(ListOverviewType),
+            resolve: data => data
+        },
+    })
+});
+
+const ListType = new GraphQLObjectType({
+    name: 'BestsellersList',
     fields: () => ({
         listName: {
             type: GraphQLString,
@@ -160,8 +196,15 @@ const AuthorType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQuery',
     fields: () => ({
-        bestsellers: {
-            type: ListsType,
+        bestsellersListsOverview: {
+            type: ListsOverviewType,
+            args: {
+                limit: { type: GraphQLInt }
+            },
+            resolve: () => listsOverviewLoader.load(0)
+        },
+        bestsellersList: {
+            type: ListType,
             args: {
                 list: { type: GraphQLString }
             },
