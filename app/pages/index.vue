@@ -38,7 +38,10 @@ export default {
             prefetch: true
         }
     },
-    head: { title: 'Bestsellers' },
+    head: {
+        titleTemplate: '%s',
+        title: 'Books'
+    },
     data() {
         return {
             bestsellersListsOverview: null
