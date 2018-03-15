@@ -25,12 +25,12 @@ export default {
     },
     head() {
         return {
-            title: (this.author ? this.author.name : 'Loading')
+            title: (this.author && this.author.name ? this.author.name : 'Loading')
         }
     },
     data() {
         return {
-            author: null
+            author: {}
         }
     },
     middleware: ({ route, redirect }) => {

@@ -26,12 +26,12 @@ export default {
     },
     head() {
         return {
-            title: (this.book ? this.book.title : 'Loading')
+            title: (this.book && this.book.title ? this.book.title : 'Loading')
         }
     },
     data() {
         return {
-            book: null
+            book: {}
         }
     },
     middleware: ({ route, redirect }) => {

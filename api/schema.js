@@ -28,7 +28,7 @@ const fetchList = list => {
         `https://api.nytimes.com/svc/books/v3/lists.json?api-key=${keys.NYTimes}&list=${list}`
     )
     .then(res => res.json())
-    .then(data => data.results)
+    .then(data => data.results.length ? data.results : null)
     .catch(error => console.log(error))
 }
 const listLoader = new DataLoader(keys => Promise.all(keys.map(fetchList)));
@@ -39,7 +39,7 @@ const fetchAuthor = id => {
     )
     .then(res => res.text())
     .then(parseXML)
-    .then(data => data.GoodreadsResponse.author[0])
+    .then(data => data.GoodreadsResponse ? data.GoodreadsResponse.author[0] : null)
     .catch(error => console.log(error))
 }
 const authorLoader = new DataLoader(keys => Promise.all(keys.map(fetchAuthor)));
@@ -50,7 +50,7 @@ const fetchBookById = id => {
     )
     .then(res => res.text())
     .then(parseXML)
-    .then(data => data.GoodreadsResponse.book[0])
+    .then(data => data.GoodreadsResponse ? data.GoodreadsResponse.book[0] : null)
     .catch(error => console.log(error))
 }
 const bookLoader = new DataLoader(keys => Promise.all(keys.map(fetchBookById)));
@@ -62,7 +62,7 @@ const fetchBookByIsbn = isbn => {
     .then(res => res.text())
     .then(parseXML)
     .then(
-        data => Promise.resolve(data.GoodreadsResponse.book[0]),
+        data => Promise.resolve(data.GoodreadsResponse ? data.GoodreadsResponse.book[0] : null),
         error => Promise.reject(error)
     )
     .catch(error => console.log(error))
@@ -75,6 +75,10 @@ const ListOverviewType = new GraphQLObjectType({
         listName: {
             type: GraphQLString,
             resolve: data => data.list_name
+        },
+        listNameEncoded: {
+            type: GraphQLString,
+            resolve: data => data.list_name_encoded
         },
         books: {
             type: new GraphQLList(BookType),

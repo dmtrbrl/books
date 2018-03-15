@@ -1,5 +1,5 @@
-query bestsellers($list: String!) {
-    bestsellers(list: $list) {
+query bestsellersList($list: String!) {
+    bestsellersList(list: $list) {
         listName
         books{
             id

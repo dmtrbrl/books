@@ -1,0 +1,19 @@
+query bestsellersListsOverview {
+    bestsellersListsOverview {
+        lists{
+            listName
+            listNameEncoded
+            books{
+                id
+                title
+                isbn
+                cover
+                authors{
+                    id
+                    name
+                    role
+                }
+            }
+        }
+    }
+}
