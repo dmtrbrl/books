@@ -26,7 +26,7 @@ export default {
     }
 
     body{
-        padding-top: 50px;
+        padding-top: 60px;
         font-family: 'Montserrat', sans-serif;
     }
 
