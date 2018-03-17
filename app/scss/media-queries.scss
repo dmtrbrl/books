@@ -1,0 +1,36 @@
+// Media queries settings
+
+$phone-ls-width: 480px;
+$tablet-p-width: 768px;
+$tablet-ls-width: 1024px;
+$desktop-width:  1200px;
+
+// Media
+
+@mixin mobile-ls-min{
+  @media (min-width: #{$phone-ls-width}){
+		@content;
+	}
+}
+
+@mixin tablet-min{
+	@media (min-width: #{$tablet-p-width}){
+		@content;
+	}
+}
+
+@mixin tablet-ls-min{
+	@media (min-width: #{$tablet-ls-width}){
+		@content;
+	}
+}
+@mixin desktop-min{
+	@media (min-width: #{$desktop-width}){
+		@content;
+	}
+}
+@mixin retina{
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi){
+    @content;
+  }
+}

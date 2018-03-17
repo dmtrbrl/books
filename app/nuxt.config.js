@@ -19,7 +19,7 @@ module.exports = {
   loading: { color: '#eeeeee' },
 
 
-  modules: ['@nuxtjs/apollo', ['nuxt-sass-resources-loader', '~scss/colors.scss']],
+  modules: ['@nuxtjs/apollo', ['nuxt-sass-resources-loader', ['~scss/colors.scss', '~scss/media-queries.scss']]],
 
   apollo: {
     clientConfigs: {
