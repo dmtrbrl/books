@@ -1,7 +1,7 @@
 <template>
     <div class="main">
         <Header></Header>
-        <nuxt/>
+        <nuxt class="page" />
         <Footer></Footer>
     </div>
 </template>
@@ -41,10 +41,18 @@ export default {
         opacity: 0
     }
 
+    // Page
+    .page{
+        min-height: 100vh;
+    }
+
     // Container
     .container{
         max-width: 1280px;
-        padding: 0 30px;
+        padding: 0 15px;
         margin: 0 auto;
+        @include tablet-min{
+            padding: 0 30px;
+        }
     }
 </style>

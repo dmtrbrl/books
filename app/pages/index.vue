@@ -29,8 +29,10 @@
                         <li class="bestsellers__book" v-for="book in bestsellersList.books" v-if="book" :key="book.id">
                             <nuxt-link class="bestsellers__book-link" :to="`/books/${book.id}`">
                                 <img class="bestsellers__book-img" :src="book.cover" :alt="book.title" />
-                                <strong class="bestsellers__book-title">{{ book.title }}</strong>
-                                <span class="bestsellers__book-author">By {{ book.authors[0].name }}</span>
+                                <div class="bestsellers__book-info">
+                                    <strong class="bestsellers__book-title">{{ book.title }}</strong>
+                                    <span class="bestsellers__book-author">By {{ book.authors[0].name }}</span>
+                                </div>
                             </nuxt-link>
                         </li>
                     </ol>
@@ -85,7 +87,7 @@ export default {
     top: 60px;
     left: 0;
     width: 100%;
-    height: 250px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -93,6 +95,12 @@ export default {
     background-image: url("../static/covers.jpg");
     background-size: cover;
     background-position: center;
+    @include tablet-min{
+        height: 200px;
+    }
+    @include desktop-min{
+        height: 250px;
+    }
     &:before{
         content: "";
         position: absolute;
@@ -104,46 +112,84 @@ export default {
     }
     &__text{
         position: relative;
-        max-width: 600px;
+        max-width: 300px;
         padding: 0 20px;
-        font-size: 64px;
+        font-size: 24px;
         line-height: 1.2;
         color: $c-white;
         text-align: center;
+        @include mobile-ls-min{
+            max-width: 400px;
+            font-size: 36px;
+        }
+        @include tablet-min{
+            max-width: 500px;
+            font-size: 48px;
+        }
+        @include desktop-min{
+            max-width: 600px;
+            font-size: 64px;
+        }
     }
 }
 .bestsellers{
     position: relative;
-    margin-top: 250px;
+    margin-top: 150px;
     background: $c-white;
+    @include tablet-min{
+        margin-top: 200px;
+    }
+    @include desktop-min{
+        margin-top: 250px;
+    }
     &__header{
         background: $c-light;
         color: $c-gray;
         &-container{
             position: relative;
-            padding-top: 40px;
-            padding-bottom: 40px;
+            padding-top: 20px;
+            padding-bottom: 20px;
             overflow: hidden;
+            @include mobile-ls-min{
+                padding-top: 30px;
+                padding-bottom: 30px;
+            }
+            @include tablet-min{
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
         }
         &-title{
             margin: 0;
-            font-size: 36px;
+            font-size: 16px;
             line-height: 1;
             font-weight: 500;
+            @include mobile-ls-min{
+                font-size: 24px;
+            }
+            @include tablet-min{
+                font-size: 36px;
+            }
         }
         &-text{
             margin: 10px 0 0;
-            font-size: 13px;
+            font-size: 12px;
             opacity: 0.5;
+            @include mobile-ls-min{
+                font-size: 13px;
+            }
         }
         &-nyt{
             position: absolute;
             top: 50%;
             right: 30px;
-            width: 150px;
+            width: 100px;
             transform: translateY(-50%);
             pointer-events: none;
             opacity: 0.05;
+            @include mobile-ls-min{
+                width: 150px;
+            }
             img{
                 width: 100%;
                 height: auto;
@@ -159,12 +205,13 @@ export default {
     }
         &__title{
             margin: 0;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: normal;
+            @include mobile-ls-min{
+                font-size: 18px;
+            }
             &-link{
-                display: inline-flex;
-                align-items: center;
-                color:$c-gray;
+                color: $c-gray;
                 text-decoration: none;
                 line-height: 1.4;
                 &:after{
@@ -172,10 +219,12 @@ export default {
                     display: inline-block;
                     width: 6px;
                     height: 6px;
+                    margin-top: -2px;
                     border-top: 2px solid $c-gray;
                     border-right: 2px solid $c-gray;
                     margin-left: 5px;
                     transform: rotate(45deg);
+                    vertical-align: middle;
                 }
                 &:hover{
                     text-decoration: underline;
@@ -184,47 +233,93 @@ export default {
         }
         &__list{
             display: flex;
+            flex-wrap: wrap;
             list-style: none;
             padding: 0;
-            margin: 20px -15px 0;
+            margin: 20px 0 0;
             counter-reset: li;
+            @include tablet-ls-min{
+                flex-wrap: nowrap;
+                margin: 20px -15px 0;
+            }
         }
         &__book{
             position: relative;
             display: flex;
-            flex-wrap: wrap;
-            width: percentage(1/5);
-            padding: 0 15px;
+            width: 100%;
             &:not(:first-child){
-                border-left: 1px solid $c-light-gray;
+                margin-top: 10px;
             }
-            &:before{
-                counter-increment: li;
-                content: "0"counter(li);
-                position: absolute;
-                top: 15px;
-                left: 15px;
-                font-size: 24px;
-                font-weight: 500;
-                color: $c-light-gray;
+            @include tablet-ls-min{
+                width: percentage(1/5);
+                padding: 0 15px;
+                &:not(:first-child){
+                    margin-top: 0;
+                    border-left: 1px solid $c-light-gray;
+                }
             }
             &-link{
-                display: block;
+                display: flex;
                 text-decoration: none;
-                color:$c-gray;  
+                color: $c-gray;
+                @include tablet-ls-min{
+                    display: block;
+                }
+                &:before{
+                    width: 20px;
+                    flex-shrink: 0;
+                    counter-increment: li;
+                    content: "0"counter(li);
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: $c-light-gray;
+                    @include mobile-ls-min{
+                        width: 30px;
+                        margin-top: 10px;
+                        font-size: 24px;
+                    }
+                    @include tablet-ls-min{
+                        position: absolute;
+                        top: 15px;
+                        left: 15px;
+                        width: auto;
+                        margin-top: 0;
+                    }
+                }
             }
             &-img{
                 display: block;
-                width: 100%;
-                max-height: 200px;
-                margin: 0 auto;
+                flex-shrink: 0;
+                width: 70px;
+                max-height: 100px;
+                margin-left: 10px;
                 object-fit: contain;
+                @include tablet-ls-min{
+                    width: 100%;
+                    margin: 0 auto;
+                    max-height: 140px;
+                }
+                @include desktop-min{
+                    max-height: 200px;
+                }
+            }
+            &-info{
+                margin-left: 15px;
+                @include mobile-ls-min{
+                    margin-top: 10px;
+                }
+                @include tablet-ls-min{
+                    margin-left: 0;
+                    margin-top: 20px;
+                }
             }
             &-title{
                 display: block;
-                margin-top: 20px;
-                font-size: 16px;
+                font-size: 14px;
                 font-weight: 500;
+                @include mobile-ls-min{
+                    font-size: 16px;
+                }
             }
             &:hover &-title{
                 text-decoration: underline;
