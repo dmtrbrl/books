@@ -6,7 +6,7 @@
             </div>
             <div class="footer__github">
                 <a href="https://github.com/dmtrbrl/books" class="footer__github-link" target="_blank">
-                    View code
+                    Show project on Github
                 </a>
             </div>
             <div class="footer__powered-by">
@@ -31,15 +31,27 @@
             }
         }
         &__container{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            & > *{
-                width: percentage(1/3);
+            text-align: center;
+            @include tablet-ls-min{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                & > *{
+                    width: percentage(1/3);
+                }
+            }
+        }
+        &__credits{
+            @include tablet-ls-min{
+                text-align: left;
             }
         }
         &__github{
-            text-align: center;
+            margin-top: 10px;
+            @include tablet-ls-min{
+                text-align: center;
+                margin-top: 0;
+            }
             &-link{
                 display: inline-flex;
                 align-items: center;
@@ -58,7 +70,11 @@
             }
         }
         &__powered-by{
-            text-align: right;
+            margin-top: 10px;
+            @include tablet-ls-min{
+                text-align: right;
+                margin-top: 0;
+            }
         }
     }
 </style>
