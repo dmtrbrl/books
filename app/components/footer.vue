@@ -19,11 +19,11 @@
 <style lang="scss">
     .footer{
         padding: 30px 0;
-        background: #eee;
+        background: $c-light-gray;
         font-size: 12px;
-        color: rgba(#333, 0.5);
+        color: rgba($c-gray, 0.5);
         a{
-            color: rgba(#333, 0.5);
+            color: rgba($c-gray, 0.5);
             text-decoration: none;
             font-weight: 500;
             &:hover{

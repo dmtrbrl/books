@@ -15,7 +15,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        background: #2B2B2B;
+        background: $c-dark;
         z-index: 100;
         &__container{
             display: flex;

@@ -89,7 +89,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #000;
+    background-color: $c-black;
     background-image: url("../static/covers.jpg");
     background-size: cover;
     background-position: center;
@@ -100,7 +100,7 @@ export default {
         left: 0;
         bottom: 0;
         right: 0;
-        background: rgba(#000, 0.7);
+        background: rgba($c-black, 0.7);
     }
     &__text{
         position: relative;
@@ -108,17 +108,17 @@ export default {
         padding: 0 20px;
         font-size: 64px;
         line-height: 1.2;
-        color: #fff;
+        color: $c-white;
         text-align: center;
     }
 }
 .bestsellers{
     position: relative;
     margin-top: 250px;
-    background: #fff;
+    background: $c-white;
     &__header{
-        background: #f9f9f9;
-        color: #333;
+        background: $c-light;
+        color: $c-gray;
         &-container{
             position: relative;
             padding-top: 40px;
@@ -154,7 +154,7 @@ export default {
     &__overview{
         padding: 30px 0;
         &:not(:first-child){
-            border-top: 1px solid #eee;
+            border-top: 1px solid $c-light-gray;
         }
     }
         &__title{
@@ -162,9 +162,9 @@ export default {
             font-size: 18px;
             font-weight: normal;
             &-link{
-                display: flex;
+                display: inline-flex;
                 align-items: center;
-                color:#333;
+                color:$c-gray;
                 text-decoration: none;
                 line-height: 1.4;
                 &:after{
@@ -172,8 +172,8 @@ export default {
                     display: inline-block;
                     width: 6px;
                     height: 6px;
-                    border-top: 2px solid #333;
-                    border-right: 2px solid #333;
+                    border-top: 2px solid $c-gray;
+                    border-right: 2px solid $c-gray;
                     margin-left: 5px;
                     transform: rotate(45deg);
                 }
@@ -196,7 +196,7 @@ export default {
             width: percentage(1/5);
             padding: 0 15px;
             &:not(:first-child){
-                border-left: 1px solid #eee;
+                border-left: 1px solid $c-light-gray;
             }
             &:before{
                 counter-increment: li;
@@ -206,15 +206,16 @@ export default {
                 left: 15px;
                 font-size: 24px;
                 font-weight: 500;
-                color: #eee;
+                color: $c-light-gray;
             }
             &-link{
+                display: block;
                 text-decoration: none;
-                color:#333;  
+                color:$c-gray;  
             }
             &-img{
                 display: block;
-                width: 70%;
+                width: 100%;
                 max-height: 200px;
                 margin: 0 auto;
                 object-fit: contain;
