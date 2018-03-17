@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section class="list">
     <div v-if="bestsellersList && bestsellersList.listName">
         <h1>
             {{ bestsellersList.listName }}
@@ -28,6 +28,7 @@
 import bestsellersListQuery from '~/apollo/queries/bestsellersList'
 
 export default {
+    layout: 'lists',
     apollo: {
         bestsellersList: {
             query: bestsellersListQuery,

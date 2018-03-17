@@ -11,15 +11,16 @@
 body{
     padding-top: 60px;
     font-family: 'Montserrat', sans-serif;
+    color: $c-gray;
 }
 
 // Transitions
-.page-enter-active, .page-leave-active {
-    transition: opacity .5s
-}
-.page-enter, .page-leave-active {
-    opacity: 0
-}
+// .page-enter-active, .page-leave-active {
+//     transition: opacity .5s
+// }
+// .page-enter, .page-leave-active {
+//     opacity: 0
+// }
 
 // Page
 .page{
