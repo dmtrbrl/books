@@ -7,25 +7,33 @@
             </h1>
         </header>
         <section class="bestsellers">
-            <div class="container">
-                <div v-for="(bestsellersList, key) in bestsellersListsOverview.lists" :key="key">
-                    <h2>
-                        <nuxt-link :to="`/lists/${bestsellersList.listNameEncoded}`">{{ bestsellersList.listName }}</nuxt-link>
+            <div class="bestsellers__header">
+                <div class="container bestsellers__header-container">
+                    <h2 class="bestsellers__header-title">
+                        The New York Times Best Sellers
                     </h2>
-                    <ul>
-                        <li v-for="book in bestsellersList.books" v-if="book" :key="book.id">
-                            <nuxt-link :to="`/books/${book.id}`">
-                                <img :src="book.cover" :alt="book.title" style="width: 100px" />
-                                <h3>{{ book.title }}</h3>
+                    <p class="bestsellers__header-text">
+                        Authoritatively ranked lists of books sold in the United States, sorted by format and genre.
+                    </p>
+                    <div class="bestsellers__header-nyt">
+                        <img src="../static/nyt-logo.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="bestsellers__overview" v-for="(bestsellersList, key) in bestsellersListsOverview.lists" :key="key">
+                    <h2 class="bestsellers__title">
+                        <nuxt-link class="bestsellers__title-link" :to="`/lists/${bestsellersList.listNameEncoded}`">{{ bestsellersList.listName }}</nuxt-link>
+                    </h2>
+                    <ol class="bestsellers__list">
+                        <li class="bestsellers__book" v-for="book in bestsellersList.books" v-if="book" :key="book.id">
+                            <nuxt-link class="bestsellers__book-link" :to="`/books/${book.id}`">
+                                <img class="bestsellers__book-img" :src="book.cover" :alt="book.title" />
+                                <strong class="bestsellers__book-title">{{ book.title }}</strong>
+                                <span class="bestsellers__book-author">By {{ book.authors[0].name }}</span>
                             </nuxt-link>
-                            <div>{{ book.isbn }}</div>
-                            <div v-for="author in book.authors" :key="author.id">
-                                <nuxt-link :to="`/authors/${author.id}`">
-                                    {{ author.name }}
-                                </nuxt-link>
-                            </div>
                         </li>
-                    </ul>
+                    </ol>
                 </div>
             </div>
         </section>
@@ -108,5 +116,124 @@ export default {
     position: relative;
     margin-top: 250px;
     background: #fff;
+    &__header{
+        background: #f9f9f9;
+        color: #333;
+        &-container{
+            position: relative;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            overflow: hidden;
+        }
+        &-title{
+            margin: 0;
+            font-size: 36px;
+            line-height: 1;
+            font-weight: 500;
+        }
+        &-text{
+            margin: 10px 0 0;
+            font-size: 13px;
+            opacity: 0.5;
+        }
+        &-nyt{
+            position: absolute;
+            top: 50%;
+            right: 30px;
+            width: 150px;
+            transform: translateY(-50%);
+            pointer-events: none;
+            opacity: 0.05;
+            img{
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+        }
+    }
+    &__overview{
+        padding: 30px 0;
+        &:not(:first-child){
+            border-top: 1px solid #eee;
+        }
+    }
+        &__title{
+            margin: 0;
+            font-size: 18px;
+            font-weight: normal;
+            &-link{
+                display: flex;
+                align-items: center;
+                color:#333;
+                text-decoration: none;
+                line-height: 1.4;
+                &:after{
+                    content: "";
+                    display: inline-block;
+                    width: 6px;
+                    height: 6px;
+                    border-top: 2px solid #333;
+                    border-right: 2px solid #333;
+                    margin-left: 5px;
+                    transform: rotate(45deg);
+                }
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+        &__list{
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 20px -15px 0;
+            counter-reset: li;
+        }
+        &__book{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            width: percentage(1/5);
+            padding: 0 15px;
+            &:not(:first-child){
+                border-left: 1px solid #eee;
+            }
+            &:before{
+                counter-increment: li;
+                content: "0"counter(li);
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                font-size: 24px;
+                font-weight: 500;
+                color: #eee;
+            }
+            &-link{
+                text-decoration: none;
+                color:#333;  
+            }
+            &-img{
+                display: block;
+                width: 70%;
+                max-height: 200px;
+                margin: 0 auto;
+                object-fit: contain;
+            }
+            &-title{
+                display: block;
+                margin-top: 20px;
+                font-size: 16px;
+                font-weight: 500;
+            }
+            &:hover &-title{
+                text-decoration: underline;
+            }
+            &-author{
+                display: block;
+                margin-top: 5px;
+                font-size: 14px;
+                opacity: 0.7;
+            }
+        }
 }
 </style>
