@@ -27,6 +27,10 @@ module.exports = {
     }
   },
 
+  css : [
+    '~scss/global.scss'
+  ],
+
 
   /*
   ** Build configuration
