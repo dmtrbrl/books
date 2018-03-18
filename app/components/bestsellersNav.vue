@@ -1,71 +1,74 @@
 <template>
-  <nav class="bestsellers-nav">
-      <ul class="bestsellers-nav__list">
-          <li class="bestsellers-nav__item">
-              <strong class="bestsellers-nav__category">Fiction</strong>
-              <ul class="bestsellers-nav__sublist">
-                  <li class="bestsellers-nav__subitem">
-                    <nuxt-link to="/lists/combined-print-and-e-book-fiction">Combined Print & E-Book Fiction</nuxt-link>
-                  </li>
-                  <li class="bestsellers-nav__subitem">
-                    <nuxt-link to="/lists/hardcover-fiction">Hardcover Fiction</nuxt-link>
-                  </li>
-                  <li class="bestsellers-nav__subitem">
-                    <nuxt-link to="/lists/trade-fiction-paperback">Paperback Trade Fiction</nuxt-link>
-                  </li>
-              </ul>
-          </li>
-          <li class="bestsellers-nav__item">
-              <strong class="bestsellers-nav__category">Nonfiction</strong>
-              <ul class="bestsellers-nav__sublist">
-                  <li class="bestsellers-nav__subitem">
-                    <nuxt-link to="/lists/combined-print-and-e-book-nonfiction">Combined Print & E-Book Nonfiction</nuxt-link>
-                  </li>
-                  <li class="bestsellers-nav__subitem">
-                    <nuxt-link to="/lists/hardcover-nonfiction">Hardcover Nonfiction</nuxt-link>
-                  </li>
-                  <li class="bestsellers-nav__subitem">
-                    <nuxt-link to="/lists/paperback-nonfiction">Paperback Nonfiction</nuxt-link>
-                  </li>
-                  <li class="bestsellers-nav__subitem">
-                    <nuxt-link to="/lists/advice-how-to-and-miscellaneous">Advice, How-To & Miscellaneous</nuxt-link>
-                  </li>
-              </ul>
-          </li>
-          <li class="bestsellers-nav__item">
-              <strong class="bestsellers-nav__category">Children’s</strong>
-              <ul class="bestsellers-nav__sublist">
-                  <li class="bestsellers-nav__subitem">
-                    <nuxt-link to="/lists/childrens-middle-grade-hardcover">Children’s Middle Grade Hardcover</nuxt-link>
-                  </li>
-                  <li class="bestsellers-nav__subitem">
-                    <nuxt-link to="/lists/picture-books">Children’s Picture Books</nuxt-link>
-                  </li>
-                  <li class="bestsellers-nav__subitem">
-                    <nuxt-link to="/lists/series-books">Children’s Series</nuxt-link>
-                  </li>
-                  <li class="bestsellers-nav__subitem">
-                    <nuxt-link to="/lists/young-adult-hardcover">Young Adult Hardcover</nuxt-link>
-                  </li>
-              </ul>
-          </li>
-          <li class="bestsellers-nav__item">
-              <strong class="bestsellers-nav__category">
-                <nuxt-link to="/lists/business-books">Business</nuxt-link>
-              </strong>
-          </li>
-          <li class="bestsellers-nav__item">
-              <strong class="bestsellers-nav__category">
-                <nuxt-link to="/lists/science">Science</nuxt-link>
-              </strong>
-          </li>
-          <li class="bestsellers-nav__item">
-              <strong class="bestsellers-nav__category">
-                <nuxt-link to="/lists/sports">Sports and Fitness</nuxt-link>
-              </strong>
-          </li>
-      </ul>
-  </nav>
+    <nav class="bestsellers-nav">
+        <div class="bestsellers-nav__sticky">
+            <strong class="bestsellers-nav__title">Best Sellers Lists</strong>
+            <ul class="bestsellers-nav__list">
+                <li class="bestsellers-nav__item">
+                    <strong class="bestsellers-nav__category">Fiction</strong>
+                    <ul class="bestsellers-nav__sublist">
+                        <li class="bestsellers-nav__subitem">
+                            <nuxt-link to="/lists/combined-print-and-e-book-fiction">Combined Print & E-Book Fiction</nuxt-link>
+                        </li>
+                        <li class="bestsellers-nav__subitem">
+                            <nuxt-link to="/lists/hardcover-fiction">Hardcover Fiction</nuxt-link>
+                        </li>
+                        <li class="bestsellers-nav__subitem">
+                            <nuxt-link to="/lists/trade-fiction-paperback">Paperback Trade Fiction</nuxt-link>
+                        </li>
+                    </ul>
+                </li>
+                <li class="bestsellers-nav__item">
+                    <strong class="bestsellers-nav__category">Nonfiction</strong>
+                    <ul class="bestsellers-nav__sublist">
+                        <li class="bestsellers-nav__subitem">
+                            <nuxt-link to="/lists/combined-print-and-e-book-nonfiction">Combined Print & E-Book Nonfiction</nuxt-link>
+                        </li>
+                        <li class="bestsellers-nav__subitem">
+                            <nuxt-link to="/lists/hardcover-nonfiction">Hardcover Nonfiction</nuxt-link>
+                        </li>
+                        <li class="bestsellers-nav__subitem">
+                            <nuxt-link to="/lists/paperback-nonfiction">Paperback Nonfiction</nuxt-link>
+                        </li>
+                        <li class="bestsellers-nav__subitem">
+                            <nuxt-link to="/lists/advice-how-to-and-miscellaneous">Advice, How-To & Miscellaneous</nuxt-link>
+                        </li>
+                    </ul>
+                </li>
+                <li class="bestsellers-nav__item">
+                    <strong class="bestsellers-nav__category">Children’s</strong>
+                    <ul class="bestsellers-nav__sublist">
+                        <li class="bestsellers-nav__subitem">
+                            <nuxt-link to="/lists/childrens-middle-grade-hardcover">Children’s Middle Grade Hardcover</nuxt-link>
+                        </li>
+                        <li class="bestsellers-nav__subitem">
+                            <nuxt-link to="/lists/picture-books">Children’s Picture Books</nuxt-link>
+                        </li>
+                        <li class="bestsellers-nav__subitem">
+                            <nuxt-link to="/lists/series-books">Children’s Series</nuxt-link>
+                        </li>
+                        <li class="bestsellers-nav__subitem">
+                            <nuxt-link to="/lists/young-adult-hardcover">Young Adult Hardcover</nuxt-link>
+                        </li>
+                    </ul>
+                </li>
+                <li class="bestsellers-nav__item">
+                    <strong class="bestsellers-nav__category">
+                        <nuxt-link to="/lists/business-books">Business</nuxt-link>
+                    </strong>
+                </li>
+                <li class="bestsellers-nav__item">
+                    <strong class="bestsellers-nav__category">
+                        <nuxt-link to="/lists/science">Science</nuxt-link>
+                    </strong>
+                </li>
+                <li class="bestsellers-nav__item">
+                    <strong class="bestsellers-nav__category">
+                        <nuxt-link to="/lists/sports">Sports and Fitness</nuxt-link>
+                    </strong>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </template>
 
 <style lang="scss">
@@ -82,11 +85,22 @@
             color: $c-gray;
         }
     }
-    &__list{
-        display: block;
+    &__sticky{
         position: sticky;
         top: 60px;
         padding: 30px 0;
+    }
+    &__title{
+        display: block;
+        margin-bottom: 25px;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: $c-gray;
+    }
+    &__list{
+        display: block;
+        padding: 0;
         margin: 0;
         list-style: none;
     }
@@ -97,7 +111,7 @@
     }
     &__sublist{
         display: block;
-        padding: 15px 0 15px 15px;
+        padding: 15px 0 10px 10px;
         margin: 0;
         list-style: none;
         font-size: 12px;

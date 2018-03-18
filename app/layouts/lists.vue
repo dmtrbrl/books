@@ -28,7 +28,7 @@ export default {
         display: flex;
     }
     &__nav{
-        width: 200px;
+        width: 250px;
         flex-shrink: 0;
     }
     &__content{
