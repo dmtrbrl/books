@@ -97,19 +97,18 @@
     }
     &__sublist{
         display: block;
-        padding: 0 0 0 10px;
+        padding: 15px 0 15px 15px;
         margin: 0;
         list-style: none;
-        font-size: 13px;
+        font-size: 12px;
     }
     &__subitem{
         &:not(:first-child){
-            padding-top: 10px;
+            padding-top: 15px;
         }
     }
     &__category{
         display: block;
-        margin-bottom: 10px;
         text-transform: uppercase;
         font-weight: 500;
         font-size: 14px;
