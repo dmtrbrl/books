@@ -5,7 +5,7 @@
             {{ bestsellersList.listName }}
         </h1>
         <ul>
-            <li v-for="book in bestsellersList.books" :key="book.id">
+            <li v-for="book in bestsellersList.books" v-if="book" :key="book.id">
                 <nuxt-link :to="`/books/${book.id}`">
                     <img :src="book.cover" :alt="book.title" style="width: 100px" />
                     <h3>{{ book.title }}</h3>

@@ -61,10 +61,7 @@ const fetchBookByIsbn = isbn => {
     )
     .then(res => res.text())
     .then(parseXML)
-    .then(
-        data => Promise.resolve(data.GoodreadsResponse ? data.GoodreadsResponse.book[0] : null),
-        error => Promise.reject(error)
-    )
+    .then(data => data.GoodreadsResponse ? data.GoodreadsResponse.book[0] : null)
     .catch(error => console.log(error))
 }
 const booksListLoader = new DataLoader(keys => Promise.all(keys.map(fetchBookByIsbn)));
@@ -110,7 +107,7 @@ const ListType = new GraphQLObjectType({
         books: {
             type: new GraphQLList(BookType),
             resolve: data => {
-                let isbns = data.map(book => book.isbns[0].isbn13 && book.isbns[0].isbn13 !== "None" ? book.isbns[0].isbn13 : book.isbns[1].isbn13);
+                let isbns = data.map(book => book.book_details[0].primary_isbn13);
                 return booksListLoader.loadMany(isbns);
             }
         }
