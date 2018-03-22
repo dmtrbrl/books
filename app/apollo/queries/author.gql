@@ -1,5 +1,6 @@
 query author($id: ID!) {
   author(id: $id) {
+    id
     name
     photo
     about

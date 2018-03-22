@@ -1,44 +1,43 @@
 <template>
   <section>
-    <div v-if="bestsellersListsOverview">
-        <header class="cta" ref="cta">
-            <h1 class="cta__text" ref="ctaText">
-                Meet your next favorite book
-            </h1>
-        </header>
-        <section class="bestsellers">
-            <div class="bestsellers__header">
-                <div class="container bestsellers__header-container">
-                    <h2 class="bestsellers__header-title">
-                        The New York Times Best Sellers
-                    </h2>
-                    <p class="bestsellers__header-text">
-                        Authoritatively ranked lists of books sold in the United States, sorted by format and genre.
-                    </p>
-                    <div class="bestsellers__header-nyt">
-                        <img src="../static/nyt-logo.svg" alt="">
-                    </div>
+    <header class="cta" ref="cta">
+        <h1 class="cta__text" ref="ctaText">
+            Meet your next favorite book
+        </h1>
+    </header>
+    <div class="bestsellers">
+        <div class="bestsellers__header">
+            <div class="container bestsellers__header-container">
+                <h2 class="bestsellers__header-title">
+                    The New York Times Best Sellers
+                </h2>
+                <p class="bestsellers__header-text">
+                    Authoritatively ranked lists of books sold in the United States, sorted by format and genre.
+                </p>
+                <div class="bestsellers__header-nyt">
+                    <img src="../static/nyt-logo.svg" alt="">
                 </div>
             </div>
-            <div class="container">
-                <div class="bestsellers__overview" v-for="(bestsellersList, key) in bestsellersListsOverview.lists" :key="key">
-                    <h2 class="bestsellers__title">
-                        <nuxt-link class="bestsellers__title-link" :to="`/lists/${bestsellersList.listNameEncoded}`">{{ bestsellersList.listName }}</nuxt-link>
-                    </h2>
-                    <ol class="bestsellers__list">
-                        <li class="bestsellers__book" v-for="book in bestsellersList.books" v-if="book" :key="book.id">
-                            <nuxt-link class="bestsellers__book-link" :to="`/books/${book.id}`">
-                                <img class="bestsellers__book-img" :src="book.cover" :alt="book.title" />
-                                <div class="bestsellers__book-info">
-                                    <strong class="bestsellers__book-title">{{ book.title }}</strong>
-                                    <span class="bestsellers__book-author">By {{ book.authors[0].name }}</span>
-                                </div>
-                            </nuxt-link>
-                        </li>
-                    </ol>
-                </div>
+        </div>
+        <div class="container" v-if="bestsellersListsOverview">
+            <div class="bestsellers__overview" v-for="(bestsellersList, key) in bestsellersListsOverview.lists" :key="key">
+                <h2 class="bestsellers__title">
+                    <nuxt-link class="bestsellers__title-link" :to="`/lists/${bestsellersList.listNameEncoded}`">{{ bestsellersList.listName }}</nuxt-link>
+                </h2>
+                <ol class="bestsellers__list">
+                    <li class="bestsellers__book" v-for="book in bestsellersList.books" v-if="book" :key="book.id">
+                        <nuxt-link class="bestsellers__book-link" :to="`/books/${book.id}`">
+                            <img class="bestsellers__book-img" :src="book.cover" :alt="book.title" />
+                            <div class="bestsellers__book-info">
+                                <strong class="bestsellers__book-title">{{ book.title }}</strong>
+                                <span class="bestsellers__book-author">By {{ book.authors[0].name }}</span>
+                            </div>
+                        </nuxt-link>
+                    </li>
+                </ol>
             </div>
-        </section>
+        </div>
+        <Loading v-else />
     </div>
   </section>
 </template>
@@ -46,6 +45,7 @@
 <script>
 
 import bestsellersListsOverviewQuery from '~/apollo/queries/bestsellersListsOverview'
+import Loading from '../components/loading'
 
 export default {
     apollo: {
@@ -57,6 +57,9 @@ export default {
     head: {
         titleTemplate: '%s',
         title: 'Books'
+    },
+    components: {
+        Loading
     },
     data() {
         return {

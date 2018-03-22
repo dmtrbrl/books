@@ -1,17 +1,18 @@
 <template>
   <section class="container">
-    <div v-if="author">
+    <div v-if="author && author.id">
         <h1>
             {{ author.name }}
         </h1>
-        <p><nuxt-link to="/">Home page</nuxt-link></p>
     </div>
+    <Loading v-else />
   </section>
 </template>
 
 <script>
 
 import authorQuery from '~/apollo/queries/author'
+import Loading from '../../components/loading'
 
 export default {
     apollo: {
@@ -27,6 +28,9 @@ export default {
         return {
             title: (this.author && this.author.name ? this.author.name : 'Loading')
         }
+    },
+    components: {
+        Loading
     },
     data() {
         return {

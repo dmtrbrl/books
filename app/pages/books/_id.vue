@@ -1,18 +1,19 @@
 <template>
   <section class="container">
-    <div v-if="book">
+    <div v-if="book && book.id">
         <img :src="book.cover" alt="">
         <h1>
             {{ book.title }}
         </h1>
-        <p><nuxt-link to="/">Home page</nuxt-link></p>
     </div>
+    <Loading v-else />
   </section>
 </template>
 
 <script>
 
 import bookQuery from '~/apollo/queries/book'
+import Loading from '../../components/loading'
 
 export default {
     apollo: {
@@ -28,6 +29,9 @@ export default {
         return {
             title: (this.book && this.book.title ? this.book.title : 'Loading')
         }
+    },
+    components: {
+        Loading
     },
     data() {
         return {

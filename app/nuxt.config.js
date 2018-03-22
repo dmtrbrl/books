@@ -14,9 +14,9 @@ module.exports = {
     ]
   },
   /*
-  ** Customize the progress bar color
+  ** Disable progress bar
   */
-  loading: { color: '#eeeeee' },
+  loading: false,
 
 
   modules: ['@nuxtjs/apollo', ['nuxt-sass-resources-loader', ['~scss/colors.scss', '~scss/media-queries.scss']]],

@@ -19,13 +19,14 @@
             </li>
         </ul>
     </div>
-    <p><nuxt-link to="/">Home page</nuxt-link></p>
+    <Loading v-else />
   </section>
 </template>
 
 <script>
 
 import bestsellersListQuery from '~/apollo/queries/bestsellersList'
+import Loading from '../../components/loading'
 
 export default {
     layout: 'lists',
@@ -42,6 +43,9 @@ export default {
         return {
             title: (this.bestsellersList && this.bestsellersList.listName ? this.bestsellersList.listName : 'Loading')
         }
+    },
+    components: {
+        Loading
     },
     data() {
         return {
