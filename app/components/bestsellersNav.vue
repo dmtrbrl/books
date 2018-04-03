@@ -44,9 +44,6 @@
                             <nuxt-link to="/lists/picture-books">Children’s Picture Books</nuxt-link>
                         </li>
                         <li class="bestsellers-nav__subitem">
-                            <nuxt-link to="/lists/series-books">Children’s Series</nuxt-link>
-                        </li>
-                        <li class="bestsellers-nav__subitem">
                             <nuxt-link to="/lists/young-adult-hardcover">Young Adult Hardcover</nuxt-link>
                         </li>
                     </ul>
@@ -87,8 +84,8 @@
     }
     &__sticky{
         position: sticky;
-        top: 60px;
-        padding: 30px 0;
+        top: 80px;
+        padding: 20px 0;
     }
     &__title{
         display: block;

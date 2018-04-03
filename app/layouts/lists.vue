@@ -28,11 +28,20 @@ export default {
         display: flex;
     }
     &__nav{
-        width: 250px;
+        position: relative;
+        width: 300px;
         flex-shrink: 0;
-    }
-    &__content{
-        margin-left: 30px;
+        padding: 20px 30px 20px 0;
+        &:before{
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 0;
+            width: 100vw;
+            height: 100%;
+            background: rgba($c-light-gray, 0.3);
+        }
     }
 }
 </style>

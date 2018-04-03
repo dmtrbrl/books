@@ -18,6 +18,7 @@ module.exports = {
   */
   loading: false,
 
+  plugins: ['~plugins/description.js'],
 
   modules: ['@nuxtjs/apollo', ['nuxt-sass-resources-loader', ['~scss/colors.scss', '~scss/media-queries.scss']]],
 
