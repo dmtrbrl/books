@@ -27,7 +27,8 @@
                 <ol class="bestsellers__list">
                     <li class="bestsellers__book" v-for="book in bestsellersList.books" v-if="book" :key="book.id">
                         <nuxt-link class="bestsellers__book-link" :to="`/books/${book.id}`">
-                            <img class="bestsellers__book-img" :src="book.cover" :alt="book.title" />
+                            <img v-if="book.cover" class="bestsellers__book-img" :src="book.cover" :alt="book.title" />
+                            <img v-else class="bestsellers__book-img" src="../static/no-book-cover.jpg">
                             <div class="bestsellers__book-info">
                                 <strong class="bestsellers__book-title">{{ book.title }}</strong>
                                 <span class="bestsellers__book-author">By {{ book.authors[0].name }}</span>

@@ -1,7 +1,8 @@
 <template>
   <section class="container">
     <div v-if="book && book.id">
-        <img :src="book.cover" alt="">
+        <img v-if="book.cover" :src="book.cover" alt="">
+        <img v-else src="../../static/no-book-cover.jpg">
         <h1>
             {{ book.title }}
         </h1>
