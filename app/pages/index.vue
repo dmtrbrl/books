@@ -31,7 +31,13 @@
                             <img v-else class="bestsellers__book-img" src="../static/no-book-cover.jpg">
                             <div class="bestsellers__book-info">
                                 <strong class="bestsellers__book-title">{{ book.title }}</strong>
-                                <span class="bestsellers__book-author">By {{ book.authors[0].name }}</span>
+                                <div class="bestsellers__book-authors">
+                                    by
+                                    <div class="bestsellers__book-author" v-for="(author, i) in book.authors" v-if="!author.role" :key="author.id">
+                                        <span v-if="i > 0">, </span>
+                                        <span>{{ author.name }}</span>
+                                    </div>
+                                </div>
                             </div>
                         </nuxt-link>
                     </li>
@@ -328,12 +334,15 @@ export default {
             &:hover &-title{
                 text-decoration: underline;
             }
-            &-author{
+            &-authors{
                 display: block;
                 margin-top: 5px;
                 font-size: 14px;
                 opacity: 0.7;
             }
+                &-author{
+                    display: inline;
+                }
         }
 }
 </style>
