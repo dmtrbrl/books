@@ -27,8 +27,10 @@
                 <ol class="bestsellers__list">
                     <li class="bestsellers__book" v-for="book in bestsellersList.books" v-if="book" :key="book.id">
                         <nuxt-link class="bestsellers__book-link" :to="`/books/${book.id}`">
-                            <img v-if="book.cover" class="bestsellers__book-img" :src="book.cover" :alt="book.title" />
-                            <img v-else class="bestsellers__book-img" src="../static/no-book-cover.jpg">
+                            <div class="bestsellers__book-cover">
+                                <img v-if="book.cover" class="bestsellers__book-cover-img" :src="book.cover" :alt="book.title" />
+                                <img v-else class="bestsellers__book-cover-img" src="../static/no-book-cover.jpg">
+                            </div>
                             <div class="bestsellers__book-info">
                                 <strong class="bestsellers__book-title">{{ book.title }}</strong>
                                 <div class="bestsellers__book-authors">
@@ -209,9 +211,6 @@ export default {
     }
     &__overview{
         padding: 30px 0;
-        &:not(:first-child){
-            border-top: 1px solid $c-light-gray;
-        }
     }
         &__title{
             margin: 0;
@@ -257,12 +256,12 @@ export default {
             position: relative;
             display: flex;
             width: 100%;
-            &:not(:first-child){
-                margin-top: 10px;
-            }
+            padding: 20px 0;
+            border-top: 1px solid $c-light-gray;
             @include tablet-ls-min{
                 width: percentage(1/5);
                 padding: 0 15px;
+                border-top: none;
                 &:not(:first-child){
                     margin-top: 0;
                     border-left: 1px solid $c-light-gray;
@@ -270,22 +269,23 @@ export default {
             }
             &-link{
                 display: flex;
+                width: 100%;
                 text-decoration: none;
                 color: $c-gray;
                 @include tablet-ls-min{
                     display: block;
                 }
                 &:before{
-                    width: 20px;
+                    width: 30px;
                     flex-shrink: 0;
                     counter-increment: li;
                     content: "0"counter(li);
                     font-size: 18px;
                     font-weight: 500;
-                    color: $c-light-gray;
+                    color: rgba($c-dark, 0.15);
                     @include mobile-ls-min{
-                        width: 30px;
-                        margin-top: 10px;
+                        width: 40px;
+                        padding-top: 10px;
                         font-size: 24px;
                     }
                     @include tablet-ls-min{
@@ -297,35 +297,43 @@ export default {
                     }
                 }
             }
-            &-img{
+            &-cover{
                 display: block;
                 flex-shrink: 0;
                 width: 70px;
-                max-height: 100px;
-                margin-left: 10px;
-                object-fit: contain;
+                @include mobile-ls-min{
+                    width: 120px;
+                }
                 @include tablet-ls-min{
                     width: 100%;
-                    margin: 0 auto;
-                    max-height: 140px;
+                    height: 140px;
                 }
                 @include desktop-min{
-                    max-height: 200px;
+                    width: 100%;
+                    height: 200px;
+                }
+                &-img{
+                    display: block;
+                    width: 100%;
+                    @include tablet-ls-min{
+                        max-height: 100%;
+                        object-fit: contain;
+                    }
                 }
             }
             &-info{
-                margin-left: 15px;
+                padding: 0 0 0 15px;
                 @include mobile-ls-min{
-                    margin-top: 10px;
+                    padding-top: 10px;
                 }
                 @include tablet-ls-min{
-                    margin-left: 0;
-                    margin-top: 20px;
+                    padding-top: 20px;
+                    padding-left: 0;
                 }
             }
             &-title{
                 display: block;
-                font-size: 14px;
+                font-size: 13px;
                 font-weight: 500;
                 @include mobile-ls-min{
                     font-size: 16px;
@@ -337,8 +345,11 @@ export default {
             &-authors{
                 display: block;
                 margin-top: 5px;
-                font-size: 14px;
+                font-size: 13px;
                 opacity: 0.7;
+                @include mobile-ls-min{
+                    font-size: 14px;
+                }
             }
                 &-author{
                     display: inline;

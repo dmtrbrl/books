@@ -26,21 +26,34 @@ export default {
 .lists{
     &__container{
         display: flex;
+        flex-wrap: wrap;
+        @include tablet-ls-min{
+            flex-wrap: nowrap;
+        }
     }
     &__nav{
-        position: relative;
-        width: 300px;
-        flex-shrink: 0;
-        padding: 20px 30px 20px 0;
-        &:before{
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 0;
-            width: 100vw;
-            height: 100%;
-            background: rgba($c-light-gray, 0.3);
+        width: 100%;
+        @include tablet-ls-min{
+            display: block;
+            position: relative;
+            width: 300px;
+            flex-shrink: 0;
+            padding: 20px 30px 20px 0;
+            &:before{
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 0;
+                width: 100vw;
+                height: 100%;
+                background: rgba($c-light-gray, 0.3);
+            }
+        }
+    }
+    &__content{
+        @include tablet-ls-min{
+            padding-left: 30px;
         }
     }
 }
