@@ -18,7 +18,7 @@ module.exports = {
   */
   loading: false,
 
-  plugins: ['~plugins/description.js'],
+  plugins: ['~plugins/directives.js'],
 
   modules: ['@nuxtjs/apollo', ['nuxt-sass-resources-loader', ['~scss/colors.scss', '~scss/media-queries.scss']]],
 
@@ -31,7 +31,6 @@ module.exports = {
   css : [
     '~scss/global.scss'
   ],
-
 
   /*
   ** Build configuration
