@@ -19,7 +19,19 @@
                     </nuxt-link>
                 </div>
             </div>
-            <div class="book__description" v-html="book.description"></div>
+            <div class="book__description" :class="{'book__description--less': descriptionIsTruncated && !showFullDescription}" ref="descriptionContainer">
+                <div class="book__description-text" v-html="book.description" ref="descriptionText"></div>
+                <a href="#" class="book__description-link"
+                    v-if="descriptionIsTruncated && !showFullDescription"
+                    @click.prevent="showFullDescription = true">
+                    More »
+                </a>
+                <a href="#" class="book__description-link"
+                    v-if="descriptionIsTruncated && showFullDescription"
+                    @click.prevent="showFullDescription = false">
+                    « Less
+                </a>
+            </div>
         </div>
         <aside class="book__aside">
             fgdfgfdgfd
@@ -54,8 +66,19 @@ export default {
     },
     data() {
         return {
-            book: {}
+            book: {},
+            descriptionIsTruncated: true,
+            showFullDescription: false
         }
+    },
+    methods: {
+        handleDescription() {
+            if(!this.$refs.descriptionText) return;
+            this.descriptionIsTruncated = this.$refs.descriptionText.clientHeight > 250;
+        }
+    },
+    mounted() {
+        this.handleDescription();
     },
     middleware: ({ route, redirect }) => {
         if(!route.params.id) {
@@ -108,13 +131,48 @@ export default {
                     }
                 }
             &__description{
+                position: relative;
                 margin-top: 20px;
                 font-size: 14px;
-                line-height: 1.5;
-                br{
-                    content: " ";
-                    display: block;
-                    margin: 7px;
+                line-height: 1.7;
+                overflow: hidden;
+                &--less{
+                    max-height: 250px;
+                    &:before{
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                        height: 100px;
+                        background-image: linear-gradient(to top, $c-white 30%, rgba($c-white, 0))
+                    }
+                }
+                &-text{
+                    br{
+                        content: " ";
+                        display: block;
+                        margin: 7px;
+                    }
+                }
+                &-link{
+                    display: inline-block;
+                    padding: 0 7px;
+                    margin-top: 10px;
+                    line-height: 26px;
+                    text-decoration: none;
+                    font-size: 13px;
+                    color: $c-dark;
+                    background: $c-light;
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                }
+                &--less &-link{
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
                 }
             }
         &__aside{
