@@ -17,7 +17,8 @@
     "graphql": "^0.13.2",
     "graphql-tag": "^2.8.0",
     "nuxt": "^1.4.0",
-    "nuxt-sass-resources-loader": "^1.2.0"
+    "nuxt-sass-resources-loader": "^1.2.0",
+    "vue-star-rating": "^1.5.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

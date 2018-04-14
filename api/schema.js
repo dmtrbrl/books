@@ -8,6 +8,7 @@ const {
     GraphQLSchema,
     GraphQLObjectType,
     GraphQLInt,
+    GraphQLFloat,
     GraphQLID,
     GraphQLString,
     GraphQLList
@@ -125,10 +126,6 @@ const BookType = new GraphQLObjectType({
             type: GraphQLString,
             resolve: data => data.title[0]
         },
-        isbn: {
-            type: GraphQLString,
-            resolve: data => typeof data.isbn[0] === 'string' ? data.isbn[0] : null
-        },
         cover: {
             type: GraphQLString,
             resolve: data => {
@@ -162,6 +159,34 @@ const BookType = new GraphQLObjectType({
                 })
             })),
             resolve: data => data.authors[0].author
+        },
+        isbn: {
+            type: GraphQLString,
+            resolve: data => typeof data.isbn[0] === 'string' ? data.isbn[0] : null
+        },
+        isbn13: {
+            type: GraphQLString,
+            resolve: data => typeof data.isbn13[0] === 'string' ? data.isbn13[0] : null
+        },
+        publisher: {
+            type: GraphQLString,
+            resolve: data => data.publisher[0]
+        },
+        format: {
+            type: GraphQLString,
+            resolve: data => data.format[0]
+        },
+        pages: {
+            type: GraphQLInt,
+            resolve: data => +data.num_pages[0]
+        },
+        average_rating: {
+            type: GraphQLFloat,
+            resolve: data => +data.average_rating[0]
+        },
+        ratings_count: {
+            type: GraphQLInt,
+            resolve: data => +data.work[0].ratings_count[0]._ || +data.ratings_count[0]
         }
     })
 });

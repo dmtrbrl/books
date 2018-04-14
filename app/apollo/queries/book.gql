@@ -3,6 +3,7 @@ query book($id: ID!) {
     id
     title
     isbn
+    isbn13
     cover
     description
     authors{
@@ -10,5 +11,10 @@ query book($id: ID!) {
         name
         role
     }
+    publisher
+    format
+    pages
+    average_rating
+    ratings_count
   }
 }

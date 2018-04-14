@@ -19,6 +19,20 @@
                     </nuxt-link>
                 </div>
             </div>
+            <div class="book__rating" v-if="book.average_rating">
+                <no-ssr><star-rating
+                    :star-size="15"
+                    active-color="#2B2B2B"
+                    inactive-color="#EEEEEE"
+                    :rating="book.average_rating" 
+                    :round-start-rating="false"
+                    :read-only="true"
+                    class="book__rating-value">
+                </star-rating></no-ssr>
+                <div class="book__rating-count">
+                    {{ book.ratings_count.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} Ratings
+                </div>
+            </div>
             <div class="book__description" :class="{'book__description--less': descriptionIsTruncated && !showFullDescription}" ref="descriptionContainer">
                 <div class="book__description-text" v-html="book.description" ref="descriptionText"></div>
                 <a href="#" class="book__description-link"
@@ -33,9 +47,6 @@
                 </a>
             </div>
         </div>
-        <aside class="book__aside">
-            fgdfgfdgfd
-        </aside>
     </div>
     <Loading v-else />
   </section>
@@ -45,6 +56,7 @@
 
 import bookQuery from '~/apollo/queries/book'
 import Loading from '../../components/loading'
+import StarRating from 'vue-star-rating'
 
 export default {
     apollo: {
@@ -62,7 +74,7 @@ export default {
         }
     },
     components: {
-        Loading
+        Loading, StarRating
     },
     data() {
         return {
@@ -74,7 +86,7 @@ export default {
     methods: {
         handleDescription() {
             if(!this.$refs.descriptionText) return;
-            this.descriptionIsTruncated = this.$refs.descriptionText.clientHeight > 250;
+            this.descriptionIsTruncated = this.$refs.descriptionText.clientHeight > 300;
         }
     },
     mounted() {
@@ -93,7 +105,7 @@ export default {
         display: flex;
         padding-top: 20px;
         &__cover{
-            width: 250px;
+            width: 350px;
             flex-shrink: 0;
             &-img{
                 display: block;
@@ -101,7 +113,7 @@ export default {
             }
         }
         &__info{
-            padding: 10px 30px 30px;
+            padding: 25px 0 30px 50px;
         }
             &__title{
                 margin: 0;
@@ -130,14 +142,34 @@ export default {
                         opacity: 0.6;
                     }
                 }
+            &__rating{
+                display: flex;
+                align-items: center;
+                margin-top: 15px;
+                &-count{
+                    position: relative;
+                    padding-left: 20px;
+                    font-size: 13px;
+                    &:before{
+                        content: "";
+                        position: absolute;
+                        left: 8px;
+                        top: 5px;
+                        width: 4px;
+                        height: 4px;
+                        border-radius: 50%;
+                        background: rgba($c-dark, 0.1);
+                    }
+                }
+            }
             &__description{
                 position: relative;
-                margin-top: 20px;
+                margin-top: 40px;
                 font-size: 14px;
                 line-height: 1.7;
                 overflow: hidden;
                 &--less{
-                    max-height: 250px;
+                    max-height: 300px;
                     &:before{
                         content: "";
                         display: block;
@@ -158,7 +190,7 @@ export default {
                 }
                 &-link{
                     display: inline-block;
-                    padding: 0 7px;
+                    padding: 0 10px;
                     margin-top: 10px;
                     line-height: 26px;
                     text-decoration: none;
@@ -175,9 +207,18 @@ export default {
                     left: 0;
                 }
             }
-        &__aside{
-            width: 250px;
-            flex-shrink: 0;
+    }
+
+    .vue-star-rating{
+        align-items: center;
+        &-star{
+            svg{
+                display: block;
+            }
+        }
+        &-rating-text{
+            margin: 0 0 0 5px !important;
+            font-size: 13px;
         }
     }
 </style>
